@@ -14,7 +14,7 @@ import com.example.mvvm.database.entities.Movie;
 import com.example.mvvm.database.entities.MovieDetail;
 
 
-@Database(entities = {MovieDetail.class, Movie.class}, version = 2, exportSchema = false)
+@Database(entities = {MovieDetail.class, Movie.class}, version = 3, exportSchema = false)
 public abstract class MovieRoomDB extends RoomDatabase {
 
     private static MovieRoomDB instance;

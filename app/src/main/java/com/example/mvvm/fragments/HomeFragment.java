@@ -28,7 +28,7 @@ import com.example.mvvm.viewmodel.MovieViewModel;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFragmentInteractionListener {
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,11 +38,11 @@ public class HomeFragment extends Fragment {
     Button search;
     EditText title;
     Context context;
+    MovieDetailsFragment movieDetailsFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -72,6 +72,11 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -79,7 +84,7 @@ public class HomeFragment extends Fragment {
 
     private void init(final View view){
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-
+        movieDetailsFragment = new MovieDetailsFragment();
         final MovieAdapter adapter = new MovieAdapter(view.getContext()) {
             @Override
             public void setClickListener(MovieViewHolder holder, final String movieTitle) {
@@ -87,7 +92,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (isConnected()){
-                            movieViewModel.retrieveMovies(movieTitle);
+                            Log.d("hola", "Titulo: "+movieTitle);
+                            movieViewModel.retrieveDetailedMovie(movieTitle);
+                            getFragmentManager().beginTransaction().replace(R.id.container, movieDetailsFragment).addToBackStack(null).commit();
                         } else {
                             Toast.makeText(view.getContext(), "Sin internet", Toast.LENGTH_LONG).show();
                         }

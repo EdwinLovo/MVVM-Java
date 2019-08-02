@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         homeFragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
     }
 
     @Override

@@ -80,7 +80,7 @@ public class MovieViewModel extends AndroidViewModel {
         call.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
-                if (!(response.isSuccessful())){
+                if (response.isSuccessful()){
                     MovieViewModel.this.insertDetailedMovie(response.body());
                 } else {
                     Log.d("hola", "No se pudo agregar los detalles de la pelicula");
@@ -90,6 +90,7 @@ public class MovieViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<MovieDetail> call, Throwable t) {
                 Log.d("hola", "Error no se pudo agregar los detalles de la pelicula");
+
             }
         });
     }

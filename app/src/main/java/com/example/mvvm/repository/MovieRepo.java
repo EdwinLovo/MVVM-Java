@@ -28,22 +28,22 @@ public class MovieRepo {
         allMovies = movieDAO.getAllMovies();
     }
 
-    //@WorkerThread
+    @WorkerThread
     public void insertMovie(Movie movie){
         movieDAO.insert(movie);
     }
 
-    //@WorkerThread
+    @WorkerThread
     public void insertDetailedMovie(MovieDetail movieDetail){
         movieDetailDAO.insert(movieDetail);
     }
 
-    //@WorkerThread
+    @WorkerThread
     public void nukeMovies(){
         movieDAO.nukeTable();
     }
 
-    //@WorkerThread
+    @WorkerThread
     public void nukeDetailedMovie(){
         movieDetailDAO.nukeTable();
     }

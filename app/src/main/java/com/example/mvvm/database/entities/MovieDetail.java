@@ -23,6 +23,34 @@ public class MovieDetail {
     @Json(name = "Poster")
     String poster;
 
+    @Json(name = "Year")
+    String year;
+
+    @Json(name = "Released")
+    String released;
+
+    @Json(name = "Runtime")
+    String runtime;
+
+    @Json(name = "Genre")
+    String genre;
+
+    @Json(name = "Director")
+    String director;
+
+    @Json(name = "Actors")
+    String actors;
+
+    @Json(name = "Plot")
+    String plot;
+
+    @Json(name = "Language")
+    String language;
+
+    @Json(name = "imdbRating")
+    String imdbrating;
+
+
     @NonNull
     public String getId() {
         return id;
@@ -54,5 +82,77 @@ public class MovieDetail {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public void setReleased(String released) {
+        this.released = released;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getImdbrating() {
+        return imdbrating;
+    }
+
+    public void setImdbrating(String imdbrating) {
+        this.imdbrating = imdbrating;
     }
 }

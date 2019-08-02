@@ -8,8 +8,6 @@ import androidx.room.Query;
 
 import com.example.mvvm.database.entities.MovieDetail;
 
-import java.util.List;
-
 @Dao
 public interface MovieDetailDAO {
 
