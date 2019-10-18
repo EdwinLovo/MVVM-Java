@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +35,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFragmentInteractionListener {
 
+    private static final String TAG = "Hola";
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() { }
@@ -39,6 +45,7 @@ public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFra
     EditText title;
     Context context;
     MovieDetailsFragment movieDetailsFragment;
+    MovieAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,8 @@ public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFra
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        Log.d(TAG, "onCreateView: Creacion");
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         context = view.getContext();
         init(view);
@@ -83,9 +92,10 @@ public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFra
     }
 
     private void init(final View view){
+        Log.d(TAG, "init: INIT");
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
         movieDetailsFragment = new MovieDetailsFragment();
-        final MovieAdapter adapter = new MovieAdapter(view.getContext()) {
+        adapter = new MovieAdapter(view.getContext()) {
             @Override
             public void setClickListener(MovieViewHolder holder, final String movieTitle) {
                 holder.movieLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +147,28 @@ public class HomeFragment extends Fragment implements MovieDetailsFragment.OnFra
         }else{
             return false;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("Hola", "onQueryTextChange: "+newText);
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

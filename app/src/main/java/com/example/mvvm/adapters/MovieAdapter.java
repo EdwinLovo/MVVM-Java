@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,14 +21,16 @@ import com.example.mvvm.database.entities.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public abstract class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements Filterable {
 
     private Context context;
-    private List<Movie> movies;
+    private List<Movie> movies, filterList;
+    private CustomFilter filter;
 
     public MovieAdapter(Context context) {
         this.context = context;
         movies = new ArrayList<>();
+        filterList = new ArrayList<>();
     }
 
     public List<Movie> getMovies() {
@@ -35,6 +39,7 @@ public abstract class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Mov
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
+        this.filterList = movies;
         notifyDataSetChanged();
     }
 
@@ -67,6 +72,14 @@ public abstract class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Mov
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter==null){
+            filter = new CustomFilter(this, filterList);
+        }
+        return filter;
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder{
